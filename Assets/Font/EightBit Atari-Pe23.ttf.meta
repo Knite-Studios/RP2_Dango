@@ -1,18 +1,18 @@
 fileFormatVersion: 2
-guid: cb30bb78b2ac7aa4e9437e7fa077a888
+guid: 0c6b1654acee888468a9e6d194706e93
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 8
+  fontSize: 16
   forceTextureCase: -2
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Press Start 2P
+  - EightBit Atari
   fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 1
+  fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1
