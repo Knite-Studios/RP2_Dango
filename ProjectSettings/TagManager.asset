@@ -9,6 +9,7 @@ TagManager:
   - BottomBoundary
   - Ground
   - Spike
+  - CamBox
   layers:
   - Default
   - TransparentFX

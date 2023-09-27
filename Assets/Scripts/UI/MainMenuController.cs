@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -57,5 +58,6 @@ public class MainMenuController : MonoBehaviour
     private void QuitGame()
     {
         Application.Quit();
+        EditorApplication.isPlaying = false;
     }
 }
