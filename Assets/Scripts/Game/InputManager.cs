@@ -2,26 +2,24 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    private PlayerController playerController;
+    public PlayerController playerController;
 
-    private void Awake()
+    private void Update()
     {
-        playerController = FindObjectOfType<PlayerController>();
-    }
+        // Handling movement
+        float moveX = Input.GetAxis("Horizontal");
+        playerController.Move(moveX);
 
-    void Update()
-    {
-        // Start/Stop recording & playback with "X" key
+        // Handling gravity switch with 'S'
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            playerController.SwitchGravity();
+        }
+
+        // Handling dimension switch with 'X'
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (!playerController.IsRecording)
-            {
-                playerController.StartRecording();
-            }
-            else
-            {
-                playerController.StopRecordingAndPlay();
-            }
+            playerController.SwitchDimension();
         }
     }
 }

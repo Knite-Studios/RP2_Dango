@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Red
+  m_Name: Brown
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _EMISSION
@@ -76,6 +76,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.9056604, g: 0.32894266, b: 0.32894266, a: 1}
-    - _EmissionColor: {r: 1, g: 0.0990566, b: 0.0990566, a: 1}
+    - _Color: {r: 0.4392157, g: 0.15686275, b: 0, a: 1}
+    - _EmissionColor: {r: 0.16202943, g: 0.02121901, b: 0, a: 1}
   m_BuildTextureStacks: []

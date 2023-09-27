@@ -1,95 +1,88 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5.0f;
-    public float jumpForce = 5.0f;
-
-    private bool isRecording = false;
     private bool isUpsideDown = false;
-    private bool isPlaying = false;
     private Rigidbody2D rb;
-    private List<RecordedInput> recordedInputs = new List<RecordedInput>();
-    private float recordStartTime;
+
+    public TMP_Text livesText;
+    private int lives = 3;
+
+    private Vector3 initialPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        initialPosition = transform.position;
+        UpdateLivesDisplay();
     }
 
     void Update()
     {
-        if (isPlaying) return;
-
         float moveX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            isUpsideDown = !isUpsideDown;
-            rb.gravityScale = isUpsideDown ? -1 : 1;
-            transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
+            SwitchGravity();
         }
 
-        if (isRecording)
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            recordedInputs.Add(new RecordedInput
-            {
-                timeStamp = Time.time - recordStartTime,
-                movement = new Vector2(moveX, rb.velocity.y),
-                jump = Input.GetKeyDown(KeyCode.S)
-            });
+            SwitchDimension();
         }
     }
 
-    public void StartRecording()
+    public void Move(float moveX)
     {
-        if (isPlaying) return;
-
-        isRecording = true;
-        recordStartTime = Time.time;
-        recordedInputs.Clear();
+        rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
     }
 
-    public void StopRecordingAndPlay()
+    public void SwitchGravity()
     {
-        isRecording = false;
-        StartCoroutine(Playback());
+        isUpsideDown = !isUpsideDown;
+        rb.gravityScale = isUpsideDown ? -4 : 4;
+        transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
     }
 
-    private IEnumerator<WaitForSeconds> Playback()
+    public void SwitchDimension()
     {
-        isPlaying = true;
+        Debug.Log("Switching dimensions");
+    }
 
-        float playbackStartTime = Time.time;
-        foreach (var input in recordedInputs)
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Spike"))
         {
-            yield return new WaitForSeconds(input.timeStamp - (Time.time - playbackStartTime));
-            
-            rb.velocity = input.movement * moveSpeed;
-            if (input.jump)
-            {
-                isUpsideDown = !isUpsideDown;
-                rb.gravityScale = isUpsideDown ? -1 : 1;
-                transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
-            }
+            LoseLife();
         }
-
-        isPlaying = false;
     }
 
-    public bool IsRecording
+    private void LoseLife()
     {
-        get { return isRecording; }
-    }
-}
+        lives--;
+        UpdateLivesDisplay();
 
-[System.Serializable]
-public class RecordedInput
-{
-    public float timeStamp;
-    public Vector2 movement;
-    public bool jump;
+        if (lives <= 0)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            transform.position = initialPosition;
+            rb.velocity = Vector2.zero;
+        }
+    }
+
+    private void UpdateLivesDisplay()
+    {
+        if (livesText)
+        {
+            livesText.text = "Lives: " + lives;
+        }
+    }
 }
