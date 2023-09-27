@@ -71,6 +71,11 @@ public class PlayerController : MonoBehaviour
             camNum = int.Parse(col.gameObject.name);//get the number from the name of the object
             cameraManager.SwitchCam(camNum);
         }
+        if (col.gameObject.CompareTag("Key"))
+        {
+            Destroy(col.gameObject);
+            Debug.Log("Key collected");
+        }
 
     }
     private void LoseLife()
