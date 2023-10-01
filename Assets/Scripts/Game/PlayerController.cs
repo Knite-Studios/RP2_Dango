@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5.0f;
     private bool isUpsideDown = false;
     private Rigidbody2D rb;
+
     [SerializeField] CameraManager cameraManager;
+
     public TMP_Text livesText;
     private int lives = 3;
 
@@ -67,9 +69,9 @@ public class PlayerController : MonoBehaviour
 
         if (col.gameObject.CompareTag("CamBox"))
         {
-            int camNum;
-            camNum = int.Parse(col.gameObject.name);//get the number from the name of the object
-            cameraManager.SwitchCam(camNum);
+            Transform camNum;
+            camNum = col.GetComponent<Transform>();
+            cameraManager.SwitchCamera(camNum);
         }
         if (col.gameObject.CompareTag("Key"))
         {

@@ -4,30 +4,10 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField] private Camera[] cameras;
-
-    private int currentCameraIndex = 0;
-
-
-    private void Start()
+    public void SwitchCamera(Transform newPos)
     {
-        for (int i = 0; i < cameras.Length; i++)
-        {
-            cameras[i].gameObject.SetActive(false);
-        }
-
-        cameras[currentCameraIndex].gameObject.SetActive(true);
-    }
-
-    public void SwitchCam(int camNum)
-    {
-        currentCameraIndex = camNum;
-        for (int i = 0; i < cameras.Length; i++)
-        {
-            cameras[i].gameObject.SetActive(false);
-        }
-
-        cameras[currentCameraIndex].gameObject.SetActive(true);
+        Debug.Log("Switching camera");
+        transform.position = new Vector3(newPos.transform.position.x,newPos.transform.position.y,transform.position.z);   // move screen to new position
     }
 
 
