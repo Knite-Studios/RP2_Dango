@@ -394,7 +394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playText: {fileID: 1956908218}
   quitText: {fileID: 1827981200}
-  highlightColor: {r: 0.4392157, g: 0.15686275, b: 0, a: 1}
+  highlightColor: {r: 0.21960784, g: 0.2509804, b: 0.6901961, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &548587176
 Transform:
