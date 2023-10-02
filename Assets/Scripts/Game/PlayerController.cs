@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CameraManager cameraManager;
 
     public TMP_Text livesText;
-    private int lives = 3;
+    private int lives = 5;
 
     private Vector3 initialPosition;
 
