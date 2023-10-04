@@ -13,18 +13,23 @@ public class PlayerController : MonoBehaviour
     private int lives = 5;
 
     private Vector3 initialPosition;
-
+    Animator animator;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         initialPosition = transform.position;
         UpdateLivesDisplay();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         float moveX = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
+        animator.SetFloat("Move",moveX);
+        //animation stuff MOVE RIGHT 
+
+
+       rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.S))
         {
