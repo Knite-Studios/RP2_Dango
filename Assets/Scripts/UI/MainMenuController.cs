@@ -10,9 +10,18 @@ public class MainMenuController : MonoBehaviour
     public Color normalColor = Color.white;
     private int selectedIndex = 0;
 
+    AudioSource UISpeaker;
+    [SerializeField]
+    private AudioClip hoverClip;
+    [SerializeField]
+    private AudioClip pressedClip;
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         UpdateUI();
+        UISpeaker = GetComponent<AudioSource>();
+        UISpeaker.clip = hoverClip;
     }
 
     private void Update()
@@ -22,6 +31,7 @@ public class MainMenuController : MonoBehaviour
             selectedIndex--;
             if (selectedIndex < 0)
                 selectedIndex = 1; // Wrap around
+            UISpeaker.Play();
             UpdateUI();
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
@@ -29,17 +39,22 @@ public class MainMenuController : MonoBehaviour
             selectedIndex++;
             if (selectedIndex > 1)
                 selectedIndex = 0; // Wrap around
+            UISpeaker.Play();
             UpdateUI();
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
+            UISpeaker.clip = pressedClip;
+            UISpeaker.Play();
+           
+
             if (selectedIndex == 0)
             {
-                PlayGame();
+                Invoke("PlayGame", 1f);
             }
             else
             {
-                QuitGame();
+                Invoke("QuitGame", 1f);
             }
         }
     }
