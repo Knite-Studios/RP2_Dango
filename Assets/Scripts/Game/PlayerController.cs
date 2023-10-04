@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5.0f;
@@ -10,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField] CameraManager cameraManager;
-
     public TMP_Text livesText;
     private int lives = 5;
 
@@ -31,10 +29,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             SwitchGravity();
+            AudioManager.Instance.PlayJumpSound();
+
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
+
             SwitchDimension();
         }
     }
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public void Move(float moveX)
     {
         rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
+
     }
 
     public void SwitchGravity()
@@ -61,6 +63,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Spike"))
         {
             LoseLife();
+            AudioManager.Instance.PlayDeathSound();
         }
 
     }
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
         }
         if (col.gameObject.CompareTag("Key"))
         {
+            AudioManager.Instance.PlayCollectSound();
             Destroy(col.gameObject);
             Debug.Log("Key collected");
         }
@@ -88,6 +92,7 @@ public class PlayerController : MonoBehaviour
         if (lives <= 0)
         {
             SceneManager.LoadScene("MainMenu");
+
         }
         else
         {

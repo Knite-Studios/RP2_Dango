@@ -1,29 +1,59 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AudioManager : Singleton<MonoBehaviour>
+public class AudioManager : MonoBehaviour
 {
-  
-    public AudioSource mainSpeaker;
+    private static AudioManager _instance;
+
+    public static AudioManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<AudioManager>();
+
+            }
+            return _instance;
+        }
+    }
+
     public AudioSource playerSpeaker;
-    [SerializeField]
-    private AudioClip mainMenuClip;
-    [SerializeField]
-    private AudioClip bGMusicClip;
     [SerializeField]
     private AudioClip deathClip;
     [SerializeField]
+    private AudioClip GameOverClip;
+    [SerializeField]
     private AudioClip jumpClip;
+    [SerializeField]
+    private AudioClip collectClip;
 
     void Awake()
     {
-        mainSpeaker = GetComponent<AudioSource>();
-        playerSpeaker = GetComponentInChildren<AudioSource>();
+        playerSpeaker = GetComponent<AudioSource>();
+        
     }
-    void PlayMusic()
+
+
+    public void PlayDeathSound()
     {
-        mainSpeaker.Play();
+        playerSpeaker.clip = deathClip;
+        playerSpeaker.Play();
+        playerSpeaker.loop = false;
     }
+    public void PlayJumpSound()
+    {
+        playerSpeaker.clip = jumpClip;
+        playerSpeaker.Play();
+        playerSpeaker.loop = false;
+    }
+    public void PlayCollectSound()
+    {
+        playerSpeaker.clip = collectClip;
+        playerSpeaker.Play();
+        playerSpeaker.loop = false;
+    }
+    
    /* public void ToggleMute()
     {
 
